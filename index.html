@@ -26,76 +26,7 @@
 <br />
 Com EAX você não precisa mais reinventar a roda, apenas use e começe a produzir.</p>
 
-<code><pre><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<style type="text/css">
-.form-control { margin-bottom: 10px }
-</style>
-
-<div style="width: 400px;margin: 0 auto">
-<h2>EAX - Easy AjaX</h2>
-
-<div>
-    <input type="text" class="form-control frm-nome" placeholder="Nome">
-    <input type="text" class="form-control frm-idade" placeholder="Idade">
-    <input type="text" class="form-control frm-pais" placeholder="País">
-</div>
-
-<div>
-    <button class="btn btn-primary" id="post">Envia dados</button>
-    <button class="btn btn-primary" id="get">Pegar dados</button>
-</div>
-
-
-<div>
-    <div style="margin-top: 10px">Resposta:</div>
-    <textarea id="area" class="form-control" style="margin-top:10px">Pega dados usando GET</textarea>   
-    <div class="lblStatus"></div>
-</div>
-</div>
-
-<script type="text/javascript" src="eax.js"></script>
-<script type="text/javascript">
-    
-    var btnPost = eax.element('#post'),
-    btnGet = eax.element('#get'),
-    lblStatus = eax.element('.lblStatus'),
-    textarea = eax.element('textarea'),
-    nome = eax.element('.frm-nome'),
-    idade = eax.element('.frm-idade'),
-    pais = eax.element('.frm-pais');
-    
-    btnPost.onclick = function() {        
-        eax
-            .http('POST', 'post.php', {nome: nome.value, idade: idade.value, pais: pais.value})
-            .success(function(data) {
-                lblStatus.innerHTML = "Sucesso ao enviar!";
-            })
-            .error(function(data) {
-                lblStatus.innerHTML = "Erro ao enviar!";
-            });
-            console.log('send');
-    };
-
-    btnGet.onclick = function() {    
-        eax
-            .http('GET', 'data.txt')        
-            .success(function(data) {
-                lblStatus.innerHTML = "Sucesso ao pegar dados!";
-                textarea.innerHTML = data;
-            })
-            .error(function(data) {
-                lblStatus.innerHTML = "Erro ao pegar dados!";
-            });
-            console.log('get');
-
-    };
-
-     
-        
-    
-        
-</script></pre></code>
+<code><pre>&lt;meta charset=&quot;utf-8&quot;&gt; &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css&quot;&gt; &lt;style type=&quot;text/css&quot;&gt; .form-control { margin-bottom: 10px } &lt;/style&gt; &lt;div style=&quot;width: 400px;margin: 0 auto&quot;&gt; &lt;h2&gt;EAX - Easy AjaX&lt;/h2&gt; &lt;div&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-nome&quot; placeholder=&quot;Nome&quot;&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-idade&quot; placeholder=&quot;Idade&quot;&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-pais&quot; placeholder=&quot;Pa&iacute;s&quot;&gt; &lt;/div&gt; &lt;div&gt; &lt;button class=&quot;btn btn-primary&quot; id=&quot;post&quot;&gt;Envia dados&lt;/button&gt; &lt;button class=&quot;btn btn-primary&quot; id=&quot;get&quot;&gt;Pegar dados&lt;/button&gt; &lt;/div&gt; &lt;div&gt; &lt;div style=&quot;margin-top: 10px&quot;&gt;Resposta:&lt;/div&gt; &lt;textarea id=&quot;area&quot; class=&quot;form-control&quot; style=&quot;margin-top:10px&quot;&gt;Pega dados usando GET&lt;/textarea&gt; &lt;div class=&quot;lblStatus&quot;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;script type=&quot;text/javascript&quot; src=&quot;eax.js&quot;&gt;&lt;/script&gt; &lt;script type=&quot;text/javascript&quot;&gt; var btnPost = eax.element('#post'), btnGet = eax.element('#get'), lblStatus = eax.element('.lblStatus'), textarea = eax.element('textarea'), nome = eax.element('.frm-nome'), idade = eax.element('.frm-idade'), pais = eax.element('.frm-pais'); btnPost.onclick = function() { eax .http('POST', 'post.php', {nome: nome.value, idade: idade.value, pais: pais.value}) .success(function(data) { lblStatus.innerHTML = &quot;Sucesso ao enviar!&quot;; }) .error(function(data) { lblStatus.innerHTML = &quot;Erro ao enviar!&quot;; }); console.log('send'); }; btnGet.onclick = function() { eax .http('GET', 'data.txt') .success(function(data) { lblStatus.innerHTML = &quot;Sucesso ao pegar dados!&quot;; textarea.innerHTML = data; }) .error(function(data) { lblStatus.innerHTML = &quot;Erro ao pegar dados!&quot;; }); console.log('get'); }; &lt;/script&gt;</pre></code>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ezekmoraes/eax">EAX </a> - <a href="https://github.com/ezekmoraes">ezekmoraes</a>.</span>
