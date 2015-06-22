@@ -1,64 +1,70 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        
-    </head>
-    <body>
-        <h2>EAX - Easy AjaX</h2>
-        
-        <button id="send">Envia POST</button>
-        
-        <br>
-        
-        <textarea id="area">Pega dados usando GET</textarea>
-        
-        
-        <script type="text/javascript" src="eax.js"></script>
-        <script type="text/javascript">
-        
-            
-            // POST
-            function sucesso_post(data) {
-                console.log(data);
-            }
-            
-            function error_post(status) {
-                console.log("erro:" + status);
-            }
-            
-            function progresso_post() {
-                console.log("Carregando...");
-            }
-            
-            
-            // GET
-            function sucesso_get(data) {
-                document.getElementById('area').innerHTML = data;
-            }
-            
-            function error_get(status) {
-                console.log("erro:" + status);
-            }
-            
-            function progresso_get() {
-                console.log("Carregando...");
-            }
-            
-            //var button = eax.element('#send');            
-            var button = document.getElementById('send');
-            
-            button.onclick = function() {                
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style type="text/css">
+.form-control { margin-bottom: 10px }
+</style>
 
-                // ENVIA
-                eax.http('POST', 'post.php', {nome: "Ezeko", idade: 17, pais: "BR"}).success(sucesso_post).error(error_post).progress(progresso_post);
-                
-                // RETORNA
-                eax.http('GET', 'data.txt').success(sucesso_get).error(error_get).progress(progresso_get);
-                
-            };
-            
-                
-        </script>
-    </body>
+<div style="width: 400px;margin: 0 auto">
+<h2>EAX - Easy AjaX</h2>
+
+<div>
+    <input type="text" class="form-control frm-nome" placeholder="Nome">
+    <input type="text" class="form-control frm-idade" placeholder="Idade">
+    <input type="text" class="form-control frm-pais" placeholder="País">
+</div>
+
+<div>
+    <button class="btn btn-primary" id="post">Envia dados</button>
+    <button class="btn btn-primary" id="get">Pegar dados</button>
+</div>
+
+
+<div>
+    <div style="margin-top: 10px">Resposta:</div>
+    <textarea id="area" class="form-control" style="margin-top:10px">Pega dados usando GET</textarea>   
+    <div class="lblStatus"></div>
+</div>
+</div>
+
+<script type="text/javascript" src="eax.js"></script>
+<script type="text/javascript">
     
-</html>
+    var btnPost = eax.element('#post'),
+    btnGet = eax.element('#get'),
+    lblStatus = eax.element('.lblStatus'),
+    textarea = eax.element('textarea'),
+    nome = eax.element('.frm-nome'),
+    idade = eax.element('.frm-idade'),
+    pais = eax.element('.frm-pais');
+    
+    btnPost.onclick = function() {        
+        eax
+            .http('POST', 'post.php', {nome: nome.value, idade: idade.value, pais: pais.value})
+            .success(function(data) {
+                lblStatus.innerHTML = "Sucesso ao enviar!";
+            })
+            .error(function(data) {
+                lblStatus.innerHTML = "Erro ao enviar!";
+            });
+            console.log('send');
+    };
+
+    btnGet.onclick = function() {    
+        eax
+            .http('GET', 'data.txt')        
+            .success(function(data) {
+                lblStatus.innerHTML = "Sucesso ao pegar dados!";
+                textarea.innerHTML = data;
+            })
+            .error(function(data) {
+                lblStatus.innerHTML = "Erro ao pegar dados!";
+            });
+            console.log('get');
+
+    };
+
+     
+        
+    
+        
+</script>
