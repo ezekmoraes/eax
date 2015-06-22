@@ -16,6 +16,7 @@
       <a href="https://github.com/ezekmoraes/eax" class="btn">Ver no GitHub</a>
       <a href="https://github.com/ezekmoraes/eax/zipball/master" class="btn">Baixar .zip</a>
       <a href="https://github.com/ezekmoraes/eax/tarball/master" class="btn">Baixar .tar.gz</a>
+      <a href="http://eax.16mb.com/" class="btn">Demo</a>      
     </section>
 
     <section class="main-content">
@@ -25,8 +26,110 @@
 <p>Essa API foi desenvolvida com o objetivo de facilitar o uso de Ajax em suas aplicações Web. Com isso sua produtividade durante um projeto aumenta e você não precisa se preocupar em criar todo aquele JavaScript.<br />
 <br />
 Com EAX você não precisa mais reinventar a roda, apenas use e começe a produzir.</p>
+<h3>Como usar</h3>
+<p>Veja abaixo como fazer uma requisição sem mostrar retorno.</p>
+<code>
+  <pre>    
+// faz um POST
+// (String) request, (String) url, (Object) data
+// sintaxe: eax.http(req, url, data)
 
-<code><pre>&lt;meta charset=&quot;utf-8&quot;&gt; &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css&quot;&gt; &lt;style type=&quot;text/css&quot;&gt; .form-control { margin-bottom: 10px } &lt;/style&gt; &lt;div style=&quot;width: 400px;margin: 0 auto&quot;&gt; &lt;h2&gt;EAX - Easy AjaX&lt;/h2&gt; &lt;div&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-nome&quot; placeholder=&quot;Nome&quot;&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-idade&quot; placeholder=&quot;Idade&quot;&gt; &lt;input type=&quot;text&quot; class=&quot;form-control frm-pais&quot; placeholder=&quot;Pa&iacute;s&quot;&gt; &lt;/div&gt; &lt;div&gt; &lt;button class=&quot;btn btn-primary&quot; id=&quot;post&quot;&gt;Envia dados&lt;/button&gt; &lt;button class=&quot;btn btn-primary&quot; id=&quot;get&quot;&gt;Pegar dados&lt;/button&gt; &lt;/div&gt; &lt;div&gt; &lt;div style=&quot;margin-top: 10px&quot;&gt;Resposta:&lt;/div&gt; &lt;textarea id=&quot;area&quot; class=&quot;form-control&quot; style=&quot;margin-top:10px&quot;&gt;Pega dados usando GET&lt;/textarea&gt; &lt;div class=&quot;lblStatus&quot;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;script type=&quot;text/javascript&quot; src=&quot;eax.js&quot;&gt;&lt;/script&gt; &lt;script type=&quot;text/javascript&quot;&gt; var btnPost = eax.element('#post'), btnGet = eax.element('#get'), lblStatus = eax.element('.lblStatus'), textarea = eax.element('textarea'), nome = eax.element('.frm-nome'), idade = eax.element('.frm-idade'), pais = eax.element('.frm-pais'); btnPost.onclick = function() { eax .http('POST', 'post.php', {nome: nome.value, idade: idade.value, pais: pais.value}) .success(function(data) { lblStatus.innerHTML = &quot;Sucesso ao enviar!&quot;; }) .error(function(data) { lblStatus.innerHTML = &quot;Erro ao enviar!&quot;; }); console.log('send'); }; btnGet.onclick = function() { eax .http('GET', 'data.txt') .success(function(data) { lblStatus.innerHTML = &quot;Sucesso ao pegar dados!&quot;; textarea.innerHTML = data; }) .error(function(data) { lblStatus.innerHTML = &quot;Erro ao pegar dados!&quot;; }); console.log('get'); }; &lt;/script&gt;</pre></code>
+var dados = {
+  nome: "Ezequiel"
+}
+
+eax.http('POST', '/post-data', dados);
+
+  </pre>
+</code>
+
+<p>Mostrando uma mensagem de sucesso, erro e  progresso.</p>
+
+<code>
+  <pre>    
+var dados = {
+  nome: "Ezequiel"
+}
+
+eax
+  .http('POST', '/post-data', dados)
+  .success(function() {
+    alert('Sucesso');
+  })
+  .error(function() {
+    alert('Erro');
+  }).
+  progress(function() {
+    alert('Carregando');
+  });
+
+// sintaxe: eax.http(req, url, data).success(function).error(function).error(function);
+
+  </pre>
+</code>
+
+
+<p>Envio síncrono e asíncrono.</p>
+
+<code>
+  <pre>    
+var dados = {
+  nome: "Ezequiel"
+}
+
+eax
+  .http('POST', '/post-data', dados, false) // true: async, false: sync
+  .success(function() {
+    alert('Sucesso');
+  })
+  .error(function() {
+    alert('Erro');
+  }).
+  progress(function() {
+    alert('Carregando');
+  }); 
+
+// sintaxe: eax.http(req, url, data, async).success(function).error(function).error(function);
+
+  </pre>
+</code>
+
+<p>Recuperando dados</p>
+
+<code>
+<pre>
+eax
+.http('GET', '/get-data', true) // o asincronismo é opcional, caso sem ele, por padrão fica true
+.success(function(data) {
+  document.body.innerHTML = "Sucesso! Dados: " + data;
+})
+.error(function(status) {
+  alert('Erro! Número do erro: ' + status);
+}).
+progress(function() {
+  alert('Carregando');
+}); 
+</pre>
+</code>
+
+
+<h3>Exemplo</h3>
+<p>Primerio crie uma página importantado a API EAX.<br>
+index.html <br>
+<script src="https://gist.github.com/ezekmoraes/769d8de94fe40bc37aca.js"></script>
+</p>
+<br>
+<p>Depois implemente um script com as funções do EAX. <br>
+app.js <br>
+<script src="https://gist.github.com/ezekmoraes/46b9fe5216302ed904f6.js"></script>
+</p>
+<br>
+<p>
+Faça seu back-end para testar a requisição de POST. No caso, crie um arquivo para gravar as informações que vão ser pegas no GET.<br>
+post.php <br>
+<script src="https://gist.github.com/ezekmoraes/1d96a5ace3ecc46a9e8f.js"></script>
+</p>
+
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ezekmoraes/eax">EAX </a> - <a href="https://github.com/ezekmoraes">ezekmoraes</a>.</span>
